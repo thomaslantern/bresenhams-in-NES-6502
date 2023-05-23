@@ -12,6 +12,7 @@
 numerator equ $01
 denominator equ $02
 player_buttons equ $03
+cursor_pos equ $04
 
 nmihandler:
 
@@ -221,7 +222,8 @@ forever:
     jmp forever
 
 
-
+; READ DA CONTROLLA
+; (GET TO DA CHOPPA)
 read_controller:
     
     ; Left and right change values in fraction
@@ -286,6 +288,8 @@ check_up:
 
 change_num:
     ; do something here
+    ; think 2029 and 2069 are the cursor positions??
+    ; will also need a "START/GO" cursor below numerator/denominator
     rts
 
 
