@@ -16,10 +16,8 @@ cursor_pos equ $04
 
 nmihandler:
 
-
-
     ; Read controller input
-    read_ctrl_loop
+    jsr read_controller
 
     ; Update Sprites
     lda #$02
@@ -215,7 +213,11 @@ sprite_pls:
     sta $2001
     lda #$88
     sta $2000
-    
+
+    lda #1
+    sta numerator
+    lda #2
+    sta denominator    
 
 
 forever:
@@ -237,12 +239,6 @@ read_controller:
 
     ldx #8
 read_ctrl_loop:
-    lda #1      ; Begin logging controller input
-    sta $4016   ; Controller 1
-    lda #0      ; Finish logging
-    sta $4016   ; Controller 1
-
-    ldx #8
 
     pha     ; Put accumulator on stack
     lda $4016   ; Read next bit from controller
@@ -262,11 +258,11 @@ read_ctrl_loop:
 check_right:
     lda player_buttons   ; Load buttons
     and #%10000000      ; Bit 7 is "right"
-    beq checkleft       ; Skip move if zero/not pressed
+    beq check_left       ; Skip move if zero/not pressed
     increase_num:
         ; Number goes higher
         lda #1
-        jsr change_num
+        jmp change_num
 check_left:
     lda player_buttons
     and #%01000000      ; Bit 6 is "left"
@@ -274,7 +270,7 @@ check_left:
     decrease_num:       ; (Sim. to code above but for moving left)
         ; Number goes lower
         lda #255
-        jsr change_num
+        jmp change_num
 check_down:
     ; Move from numerator to denominator
     ; (or vice versa)
@@ -283,10 +279,29 @@ check_up:
     ; Move from denominator to numerator
     ; (or vice versa)
 
-
     rts 
 
 change_num:
+    ;lda #35
+    ;sta $0200
+    
+    clc
+    adc numerator
+    sta numerator
+
+    lda $2002
+    lda #$20
+    sta $2006
+    lda #$28
+    sta $2006
+    
+    lda numerator
+    sta $2007
+    sta $0200
+
+    lda #0
+    sta $2005
+    sta $2005
     ; do something here
     ; think 2029 and 2069 are the cursor positions??
     ; will also need a "START/GO" cursor below numerator/denominator
