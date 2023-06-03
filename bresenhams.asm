@@ -13,6 +13,7 @@ numerator equ $01
 denominator equ $02
 player_buttons equ $03
 cursor_pos equ $04
+controller_buffer equ $05
 
 nmihandler:
 
@@ -214,6 +215,8 @@ sprite_pls:
     lda #$88
     sta $2000
 
+    lda #0
+    sta controller_buffer
     lda #1
     sta numerator
     lda #2
@@ -284,10 +287,25 @@ check_up:
 change_num:
     ;lda #35
     ;sta $0200
+
+    ldx controller_buffer
+    inx
+    stx controller_buffer
+
+
+    cpx #4
+    beq do_change
+no_change:
+    rts
+do_change
+    ldx #0
+    stx controller_buffer
+
     
     clc
     adc numerator
     sta numerator
+
 
     lda $2002
     lda #$20
