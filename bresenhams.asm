@@ -217,9 +217,9 @@ sprite_pls:
 
     lda #0
     sta controller_buffer
-    lda #1
+    lda #31
     sta numerator
-    lda #2
+    lda #32
     sta denominator    
 
 
@@ -675,8 +675,9 @@ background_tile_start:
     db %00010000
     db $00, $00, $00, $00, $00, $00, $00, $00
 
+    ; BG#28: "Z"
     db %00000000
-    db %11111110    ; "Z"
+    db %11111110    
     db %00001100    
     db %00011000
     db %00110000
@@ -695,6 +696,7 @@ background_tile_start:
     db %00010000
     db $00, $00, $00, $00, $00, $00, $00, $00
 
+    ; BG#30: "1"
     db %00000000
     db %00010000    ; "1"
     db %00010000
