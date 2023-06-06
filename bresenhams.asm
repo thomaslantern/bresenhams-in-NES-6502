@@ -217,6 +217,7 @@ sprite_pls:
 
     lda #0
     sta controller_buffer
+    sta cursor_pos
     lda #31
     sta numerator
     lda #32
@@ -278,9 +279,13 @@ check_down:
     ; Move from numerator to denominator
     ; (or vice versa)
 
+    ; add to cursor_pos
+
 check_up:
     ; Move from denominator to numerator
     ; (or vice versa)
+
+    ; take away from cursor_pos
 
     rts 
 
@@ -304,6 +309,11 @@ do_change
     
     clc
     adc numerator
+    cmp #29
+    bne no_loop_num
+loop_num:
+    lda #38
+no_loop_num:
     sta numerator
 
 
@@ -785,6 +795,16 @@ background_tile_start:
     db %00000010
     db %00000010
     db %00000010
+    db $00, $00, $00, $00, $00, $00, $00, $00
+
+    db %00000000
+    db %00111000    ; "go"
+    db %01000000
+    db %01001000
+    db %00111000
+    db %00111000
+    db %00101000
+    db %00111000
     db $00, $00, $00, $00, $00, $00, $00, $00
 
 
