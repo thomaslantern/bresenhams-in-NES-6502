@@ -311,8 +311,10 @@ do_change
     adc numerator
     cmp #29
     bne no_loop_num
+    ;cmp #40         FIX UT FIX UT
+    ;bne no_loop_num
 loop_num:
-    lda #38
+    lda #39
 no_loop_num:
     sta numerator
 
@@ -798,14 +800,15 @@ background_tile_start:
     db $00, $00, $00, $00, $00, $00, $00, $00
 
     db %00000000
-    db %00111000    ; "go"
-    db %01000000
-    db %01001000
-    db %00111000
-    db %00111000
-    db %00101000
-    db %00111000
+    db %01111100    ; "0"
+    db %10000110
+    db %10001010
+    db %10010010
+    db %10100010
+    db %11000010
+    db %01111100
     db $00, $00, $00, $00, $00, $00, $00, $00
+
 
 
 
