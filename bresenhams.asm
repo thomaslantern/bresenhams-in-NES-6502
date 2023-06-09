@@ -309,12 +309,14 @@ do_change
     
     clc
     adc numerator
+check_low:
     cmp #29
+    beq loop_num
+check_high:    
+    cmp #40
     bne no_loop_num
-    ;cmp #40         FIX UT FIX UT
-    ;bne no_loop_num
 loop_num:
-    lda #39
+    lda #29
 no_loop_num:
     sta numerator
 
