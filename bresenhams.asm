@@ -311,11 +311,11 @@ do_change
     adc numerator
 check_low:
     cmp #30
-    bpl no_loop_num
+    bpl check_high
     lda #39
     jmp no_loop_num
 check_high:    
-    cmp #39
+    cmp #40
     bne no_loop_num
 loop_num:
     lda #30
@@ -702,6 +702,7 @@ background_tile_start:
     db %11111110
     db $00, $00, $00, $00, $00, $00, $00, $00
 
+    ; BG#29: "!"
     db %00000000
     db %00010000    ; "!"
     db %00010000
