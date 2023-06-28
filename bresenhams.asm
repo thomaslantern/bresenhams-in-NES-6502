@@ -316,7 +316,7 @@ check_low:
     jmp no_loop_num
 check_high:    
     cmp #40
-    bne no_loop_num
+    bpl no_loop_num
 loop_num:
     lda #30
 no_loop_num:
@@ -702,7 +702,6 @@ background_tile_start:
     db %11111110
     db $00, $00, $00, $00, $00, $00, $00, $00
 
-    ; BG#29: "!"
     db %00000000
     db %00010000    ; "!"
     db %00010000
@@ -804,6 +803,7 @@ background_tile_start:
     db %00000010
     db $00, $00, $00, $00, $00, $00, $00, $00
 
+    ;BG#:39
     db %00000000
     db %01111100    ; "0"
     db %10000110
